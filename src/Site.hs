@@ -11,6 +11,7 @@ module Site
 ------------------------------------------------------------------------------
 import           Control.Applicative
 import           Data.ByteString (ByteString)
+import           Data.Monoid
 import qualified Data.Text as T
 import           Snap.Core
 import           Snap.Snaplet
@@ -21,6 +22,7 @@ import           Snap.Snaplet.Session.Backends.CookieSession
 import           Snap.Util.FileServe
 import           Heist
 import qualified Heist.Interpreted as I
+import           Heist.Splices.Html
 ------------------------------------------------------------------------------
 import           Application
 
@@ -58,6 +60,10 @@ handleNewUser = method GET handleForm <|> method POST handleFormSubmit
     handleForm = render "new_user"
     handleFormSubmit = registerUser "login" "password" >> redirect "/"
 
+------------------------------------------------------------------------------
+-- | A demo of the repeater listing UI
+handleShowRepeater :: Handler App (AuthManager App) ()
+handleShowRepeater = render "repeater"
 
 ------------------------------------------------------------------------------
 -- | The application's routes.
@@ -65,6 +71,7 @@ routes :: [(ByteString, Handler App App ())]
 routes = [ ("/login",    with auth handleLoginSubmit)
          , ("/logout",   with auth handleLogout)
          , ("/new_user", with auth handleNewUser)
+         , ("/repeater/1", with auth handleShowRepeater)
          , ("",          serveDirectory "static")
          ]
 
@@ -84,5 +91,8 @@ app = makeSnaplet "app" "An snaplet example application." Nothing $ do
            initJsonFileAuthManager defAuthSettings sess "users.json"
     addRoutes routes
     addAuthSplices h auth
+    addConfig h $ mempty { hcInterpretedSplices =
+                              "html" ## htmlImpl -- <head> tag merging goodness!
+                         }
     return $ App h s a
 
