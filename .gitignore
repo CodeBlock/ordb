@@ -13,3 +13,4 @@ cabal.config
 # snap
 site_key.txt
 log
+users.json

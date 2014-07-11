@@ -27,5 +27,3 @@ instance HasHeist App where
 
 ------------------------------------------------------------------------------
 type AppHandler = Handler App App
-
-

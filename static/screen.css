@@ -1,26 +1,68 @@
-html {
-   padding: 0;
-   margin: 0;
-   background-color: #ffffff;
-   font-family: Verdana, Helvetica, sans-serif;
+@import url('http://fonts.googleapis.com/css?family=Open+Sans:400,700,300|Roboto');
+
+html, body, h1, h2, h3, h4, h5 {
+    font-family: 'Open Sans', sans-serif !important;
 }
-body {
-   padding: 0;
-   margin: 0;
+
+.notopmargin { margin-top: 0; }
+.left10 { margin-left: 10px; }
+.right10 { margin-right: 10px; }
+
+.navbar {
+    margin-bottom: 0;
 }
-a {
-   text-decoration: underline;
+
+.navbar li.first {
+    border-top: 2px solid #5399D6;
 }
-a :hover {
-   cursor: pointer;
-   text-decoration: underline;
+
+.navbar li.second {
+    border-top: 2px solid #F0AD4E;
 }
-img {
-   border: none;
+
+.navbar li.third {
+    border-top: 2px solid #D9534F;
 }
-#content {
-   padding-left: 1em;
+
+.navbar li.fourth {
+    border-top: 2px solid #B85C5C;
 }
-#info {
-   font-size: 60%;
+
+.ordb-intro {
+  color: #fff;
+  background: #19111f; /* Old browsers */
+  background: -moz-linear-gradient(left, #11191f 0%, #1e2c37 100%);
+  background: -webkit-gradient(linear, left top, right top, color-stop(0%,#11191f), color-stop(100%,#1e2c37));
+  background: -webkit-linear-gradient(left, #11191f 0%,#1e2c37 100%);
+  background: -o-linear-gradient(left, #11191f 0%,#1e2c37 100%);
+  background: -ms-linear-gradient(left, #11191f 0%,#1e2c37 100%);
+  background: linear-gradient(to right, #11191f 0%,#1e2c37 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#11191f', endColorstr='#1e2c37',GradientType=1 );
+  color: #f7f7f7;
+}
+
+.top20 { margin-top: 20px; }
+
+#loginform input, #index #loginform input {
+    width: 100%;
+    border: 1px solid #ddd;
+    font-size: 1.3em;
+    margin-bottom: 10px;
+    font-family: 'Roboto';
+}
+
+.left-inner-addon {
+    position: relative;
+}
+.left-inner-addon input {
+    padding-left: 30px;
+}
+.left-inner-addon i {
+    position: absolute;
+    padding: 10px 12px;
+    pointer-events: none;
+}
+
+#profile h2.callsign {
+    color: #666;
 }
