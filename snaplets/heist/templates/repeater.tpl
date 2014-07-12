@@ -43,23 +43,23 @@
           <h2>Transmit Sites</h2>
           <table class="table table-striped table-bordered">
             <tr>
-              <th>Location</th>
-              <th>Callsign</th>
               <th>Frequency</th>
+              <th>Callsign</th>
+              <th>Location</th>
               <th>CTCSS</th>
               <th>Height</th>
             </tr>
             <tr>
-              <td>41.195358, -81.393913</td>
+              <td>145.170 MHz</td>
               <td>W8UPD</td>
-              <td>145.170</td>
+              <td>41.195358, -81.393913</td>
               <td>123.0 Hz</td>
               <td>1337 meters</td>
             </tr>
             <tr>
-              <td>41.195358, -81.393913</td>
+              <td>443.1125 MHz</td>
               <td>W8UPD</td>
-              <td>443.1125</td>
+              <td>41.195358, -81.393913</td>
               <td>131.8 Hz</td>
               <td>1337 meters</td>
             </tr>
@@ -69,20 +69,20 @@
           <h2>Receive Sites</h2>
           <table class="table table-striped table-bordered">
             <tr>
-              <th>Location</th>
               <th>Frequency</th>
+              <th>Location</th>
               <th>CTCSS</th>
               <th>Height</th>
             </tr>
             <tr>
+              <td>144.570 MHz</td>
               <td>41.195328, -81.393913</td>
-              <td>144.570</td>
               <td>N/A</td>
               <td>1337 meters</td>
             </tr>
             <tr>
+              <td>448.1125 MHz</td>
               <td>41.195358, -81.393913</td>
-              <td>448.1125</td>
               <td>131.8 Hz</td>
               <td>1337 meters</td>
             </tr>
