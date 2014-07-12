@@ -43,7 +43,7 @@
               <li class="second dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <img src="http://cdn.libravatar.org/avatar/66c14e4f10ef7a6671e5e2e31e212f1b?s=16"
-                       alt="<loggedInUser/>'s avatar">
+                       alt="${loggedInUser}'s avatar">
                   <loggedInUser/> <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu">
