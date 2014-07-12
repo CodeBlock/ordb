@@ -61,6 +61,11 @@ handleNewUser = method GET handleForm <|> method POST handleFormSubmit
     handleFormSubmit = registerUser "login" "password" >> redirect "/"
 
 ------------------------------------------------------------------------------
+-- | Handle showing new users our CLA.
+handleNewUserLicense :: Handler App (AuthManager App) ()
+handleNewUserLicense = render "cla"
+
+------------------------------------------------------------------------------
 -- | A demo of the repeater listing UI
 handleShowRepeater :: Handler App (AuthManager App) ()
 handleShowRepeater = render "repeater"
@@ -71,6 +76,7 @@ routes :: [(ByteString, Handler App App ())]
 routes = [ ("/login",    with auth handleLoginSubmit)
          , ("/logout",   with auth handleLogout)
          , ("/new_user", with auth handleNewUser)
+         , ("/new_user/license", with auth handleNewUserLicense)
          , ("/repeater/1", with auth handleShowRepeater)
          , ("",          serveDirectory "static")
          ]

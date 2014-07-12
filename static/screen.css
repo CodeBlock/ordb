@@ -28,8 +28,7 @@ html, body, h1, h2, h3, h4, h5 {
     border-top: 2px solid #B85C5C;
 }
 
-.ordb-intro {
-  color: #fff;
+.ordb-jumbotron {
   background: #19111f; /* Old browsers */
   background: -moz-linear-gradient(left, #11191f 0%, #1e2c37 100%);
   background: -webkit-gradient(linear, left top, right top, color-stop(0%,#11191f), color-stop(100%,#1e2c37));

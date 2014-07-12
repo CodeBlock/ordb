@@ -62,8 +62,8 @@
             </ifLoggedIn>
             <ifLoggedOut>
               <li class="first">
-                <a href="/signup">
-                  <i class="glyphicon glyphicon-eye-open"></i> Sign up
+                <a href="/new_user">
+                  <i class="glyphicon glyphicon-eye-open"></i> Sign up to edit
                 </a>
               </li>
               <li class="second">

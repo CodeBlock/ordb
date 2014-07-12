@@ -13,7 +13,7 @@
   </head>
 
   <div id="repeater">
-    <div class="jumbotron ordb-intro">
+    <div class="jumbotron ordb-jumbotron">
       <div class="container">
         <div class="row">
           <div class="col-md-6">
