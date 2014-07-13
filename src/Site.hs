@@ -10,9 +10,11 @@ module Site
 
 ------------------------------------------------------------------------------
 import           Control.Applicative
+import           Control.Monad
 import           Data.ByteString (ByteString)
 import           Data.Monoid
 import qualified Data.Text as T
+import           Data.Text.Encoding (decodeUtf8)
 import           Snap.Core
 import           Snap.Snaplet
 import           Snap.Snaplet.Auth
@@ -55,10 +57,16 @@ handleLogout = logout >> redirect "/"
 ------------------------------------------------------------------------------
 -- | Handle new user form submit
 handleNewUser :: Handler App (AuthManager App) ()
-handleNewUser = method GET handleForm <|> method POST handleFormSubmit
+handleNewUser = do
+  method GET handleForm <|> method POST handleFormSubmit
   where
     handleForm = render "new_user"
-    handleFormSubmit = registerUser "login" "password" >> redirect "/"
+    handleFormSubmit = void $ do
+      email <- fmap decodeUtf8 <$> getParam "email"
+      u <- registerUser "login" "password"
+      either (const $ redirect' "/new_user" 303) (updateEmail email) u
+      where
+        updateEmail e u = (saveUser $ u { userEmail = e }) >> redirect "/"
 
 ------------------------------------------------------------------------------
 -- | Handle showing new users our CLA.
