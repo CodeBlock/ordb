@@ -10,11 +10,11 @@ module Site
 
 ------------------------------------------------------------------------------
 import           Control.Applicative
-import           Control.Monad
 import           Data.ByteString (ByteString)
+import           Data.Maybe (fromMaybe)
 import           Data.Monoid
 import qualified Data.Text as T
-import           Data.Text.Encoding (decodeUtf8)
+import           Data.Text.Encoding (encodeUtf8)
 import           Snap.Core
 import           Snap.Snaplet
 import           Snap.Snaplet.Auth
@@ -22,6 +22,9 @@ import           Snap.Snaplet.Auth.Backends.JsonFile
 import           Snap.Snaplet.Heist
 import           Snap.Snaplet.Session.Backends.CookieSession
 import           Snap.Util.FileServe
+import           Text.Digestive
+import           Text.Digestive.Heist
+import           Text.Digestive.Snap
 import           Heist
 import qualified Heist.Interpreted as I
 import           Heist.Splices.Html
@@ -53,20 +56,40 @@ handleLoginSubmit =
 handleLogout :: Handler App (AuthManager App) ()
 handleLogout = logout >> redirect "/"
 
+type UsernameF = T.Text
+type PasswordF = T.Text
+type EmailF    = T.Text
+data UserForm = UserForm UsernameF PasswordF EmailF
+
+userForm :: Monad m => Form T.Text m UserForm
+userForm = UserForm
+           <$> "login" .: check "Username is required" (not . T.null) (text Nothing)
+           <*> "password" .: check "Password is required" (not . T.null) (text Nothing)
+           <*> "email" .: check "Email address is required" (not . T.null) (text Nothing)
 
 ------------------------------------------------------------------------------
 -- | Handle new user form submit
 handleNewUser :: Handler App (AuthManager App) ()
 handleNewUser = do
-  method GET handleForm <|> method POST handleFormSubmit
+  r <- runForm "new_user" userForm
+  case r of
+    (v, Nothing) -> render' v Nothing
+    (v, Just (UserForm u p e)) -> do
+      res <- createUser u (encodeUtf8 p)
+      case res of
+        -- TODO: Render a failure here if it occurs?
+        Left _ -> render' v (Just (T.pack "Oops! Something went wrong!"))
+        Right user   ->
+          case userId user of
+            Nothing     -> render' v (Just "Oops! Could not create account.")
+            Just _      -> do
+              saveUser $ user { userEmail = Just e }
+              redirect "/"
   where
-    handleForm = render "new_user"
-    handleFormSubmit = void $ do
-      email <- fmap decodeUtf8 <$> getParam "email"
-      u <- registerUser "login" "password"
-      either (const $ redirect' "/new_user" 303) (updateEmail email) u
-      where
-        updateEmail e u = (saveUser $ u { userEmail = e }) >> redirect "/"
+    render' form flash =
+      renderWithSplices "new_user"
+                        (digestiveSplices form <>
+                         ("flash" ## I.textSplice (fromMaybe "" flash)))
 
 ------------------------------------------------------------------------------
 -- | Handle showing new users our CLA.

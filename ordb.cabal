@@ -24,6 +24,7 @@ Executable ordb
 
   Build-depends:
     bytestring                >= 0.9.1   && < 0.11,
+    digestive-functors        >= 0.6     && < 1,
     digestive-functors-snap   >= 0.6     && < 0.7,
     digestive-functors-heist  >= 0.8     && < 0.9,
     heist                     >= 0.13    && < 0.14,
