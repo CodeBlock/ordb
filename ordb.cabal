@@ -2,7 +2,7 @@ Name:                ordb
 Version:             0.0.1
 Synopsis:            Open Repeater Database
 Description:         A wiki-style ham radio repeater directory that doesn't suck.
-License:             BSD-2
+License:             BSD2
 Author:              Ricky Elrod, Jimmy Carter
 Maintainer:          Ricky Elrod <ricky@elrod.me>, Jimmy Carter <kg4sgp@gmail.com>
 Stability:           Experimental
@@ -24,6 +24,8 @@ Executable ordb
 
   Build-depends:
     bytestring                >= 0.9.1   && < 0.11,
+    digestive-functors-snap   >= 0.6     && < 0.7,
+    digestive-functors-heist  >= 0.8     && < 0.9,
     heist                     >= 0.13    && < 0.14,
     MonadCatchIO-transformers >= 0.2.1   && < 0.4,
     mtl                       >= 2       && < 3,
